@@ -1,22 +1,12 @@
-const fs = require('fs')
+const getFileList = require('./mymodule')
 
-const isFileExt = (ext, filename) => {
-  return filename.endsWith(`.${ext}`)
-}
+const dir = process.argv[2]
+const ext = process.argv[3]
 
-const getFileList = () => {
-  const dir = process.argv[2]
-  const ext = process.argv[3]
+getFileList(dir, ext, (err, filteredList) => {
+  if(err) {
+    return
+  }
 
-  fs.readdir(dir, (err, dirList) => {
-    if (err) {
-      return
-    }
-
-    dirList
-      .filter(filename => isFileExt(ext, filename))
-      .forEach(filename => console.log(filename))
-  })
-}
-
-getFileList()
+  filteredList.forEach(filename => console.log(filename))
+})
