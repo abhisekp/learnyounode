@@ -1,34 +1,22 @@
 const fs = require('fs')
 
-/**
- * Count the number of newline characters in the string
- * @method
- * @param  {String} str the string
- * @return {Number}     number of new lines
- */
-const countNewlines = (str) => {
-  if(!str) {
-    return 0
-  }
-
-  const newlines = str.match(/\n/g)
-
-  if(!newlines) {
-    return 0
-  }
-
-  return newlines.length
+const isFileExt = (ext, filename) => {
+  return filename.endsWith(`.${ext}`)
 }
 
-const getFile = () => {
-  fs.readFile(process.argv[2], 'utf8', (err, fileStr) => {
+const getFileList = () => {
+  const dir = process.argv[2]
+  const ext = process.argv[3]
+
+  fs.readdir(dir, (err, dirList) => {
     if (err) {
-      return 0
+      return
     }
-    
-    const newlines = countNewlines(fileStr)
-    console.log(newlines)
+
+    dirList
+      .filter(filename => isFileExt(ext, filename))
+      .forEach(filename => console.log(filename))
   })
 }
 
-getFile()
+getFileList()
