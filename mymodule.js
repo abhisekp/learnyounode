@@ -1,8 +1,8 @@
 const http = require('http')
+const bl = new require('bl')
 
 const processResponse = (cb, res) => {
-  res.setEncoding('utf8')
-  res.on('data', data => cb(data))
+  res.pipe(BL((err, data)=> cb(String(data))))
 }
 
 const getData = (url, cb) => {
