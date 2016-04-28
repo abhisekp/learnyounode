@@ -1,12 +1,7 @@
-const getFileList = require('./mymodule')
+const getData = require('./mymodule')
 
-const dir = process.argv[2]
-const ext = process.argv[3]
+const url = process.argv[2]
 
-getFileList(dir, ext, (err, filteredList) => {
-  if(err) {
-    return
-  }
-
-  filteredList.forEach(filename => console.log(filename))
+getData(url, (data) => {
+  console.log(data)
 })

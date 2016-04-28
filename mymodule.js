@@ -1,19 +1,12 @@
-const fs = require('fs')
+const http = require('http')
 
-const isFileExt = (ext, filename) => {
-  return filename.endsWith(`.${ext}`)
+const processResponse = (cb, res) => {
+  res.setEncoding('utf8')
+  res.on('data', data => cb(data))
 }
 
-const getFileList = (dir, ext, cb) => {
-  fs.readdir(dir, (err, dirList) => {
-    if (err) {
-      return cb(err)
-    }
-
-    const filteredList = dirList.filter(filename => isFileExt(ext, filename))
-
-    cb(null, filteredList)
-  })
+const getData = (url, cb) => {
+  http.get(url, res => processResponse(cb, res))
 }
 
-module.exports = getFileList
+module.exports = getData
