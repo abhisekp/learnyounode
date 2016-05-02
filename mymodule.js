@@ -1,5 +1,5 @@
 const http = require('http')
-const bl = new require('bl')
+const concatStream = new require('concat-stream')
 
 const processResponse = (cb, data) => {
   cb(data)
@@ -8,9 +8,7 @@ const processResponse = (cb, data) => {
 const getData = (url, cb) => {
   let data = ''
   http.get(url, res => {
-    res.setEncoding('utf8')
-    res.on('data', (_data) => data += _data)
-    res.on('end', () => processResponse(cb, data))
+    res.pipe(concatStream(data => processResponse(cb, data.toString('utf8'))))
   })
 }
 
