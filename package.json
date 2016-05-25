@@ -1,0 +1,33 @@
+{
+  "name": "@abhisekp/learnyounode",
+  "version": "0.0.0",
+  "description": "Learn You Node",
+  "main": "program.js",
+  "dependencies": {
+    "async": "^2.0.0-rc.3",
+    "bl": "^1.1.2",
+    "concat-stream": "^1.5.1",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.10.2",
+    "eslint-config-airbnb-base": "^3.0.1",
+    "eslint-plugin-import": "^1.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhisekp/learnyounode.git"
+  },
+  "keywords": [
+    "learnyounode"
+  ],
+  "author": "Abhisek Pattnaik <abhisekp@engineer.com> (https://about.me/abhisekp)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abhisekp/learnyounode/issues"
+  },
+  "homepage": "https://github.com/abhisekp/learnyounode#readme"
+}
