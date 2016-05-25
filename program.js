@@ -1,28 +1,19 @@
 #!/usr/bin/env node
 
-const net = require('net');
 const fp = require('lodash/fp');
+const http = require('http');
+const fs = require('fs');
+const parseArgs = require('minimist');
+const path = require('path');
 
-const PORT = process.argv[2];
+const args = parseArgs(process.argv);
+const PORT = args._[2];
+const relFilePath = args._[3];
+const FILE_PATH = path.resolve(relFilePath);
 
-const getFormattedDate = dateObj => {
-  const year = dateObj.getFullYear();
-  const month = dateObj.getMonth() + 1;
-  const date = dateObj.getDate();
-  const hours = dateObj.getHours();
-  const minutes = dateObj.getMinutes(); 
-  
-  const pad2 = fp.padCharsStart(0)(2)
-  const monthStr = pad2(month);
-  const dateStr = pad2(date);
-  const hoursStr = pad2(hours);
-  const minutesStr = pad2(minutes);
-  
-  return `${ year }-${ monthStr }-${ dateStr } ${ hoursStr }:${ minutesStr }`
-}
-
-net.createServer(socket => {
-  const data = getFormattedDate(new Date);
-  socket.write(data);
-  socket.end('\n');
-}).listen(PORT);
+const server = http.createServer((req, res) => {
+  fs.createReadStream(FILE_PATH).pipe(res);
+}).listen(PORT, '127.0.0.1', () => {
+  const addr = server.address();
+  console.log('Connection listening on %s : %d', addr.address, addr.port);
+});
