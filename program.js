@@ -1,7 +1,9 @@
-const getData = require('./mymodule')
+#!/usr/bin/env node
 
-const urls = process.argv.slice(2)
+const getData = require('./mymodule');
 
-getData(urls, (data) => {
-  console.log(data)
-})
+const urls = process.argv.slice(2);
+
+getData(urls, data => {
+  console.log(data);
+});
